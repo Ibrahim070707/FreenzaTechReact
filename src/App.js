@@ -11,9 +11,15 @@ function App() {
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
-    setTimeout(() => {
+    if (sessionStorage.getItem("AnimationVisible")) {
       setWebsite(true);
-    }, 6000);
+    } else {
+      setTimeout(() => {
+        setWebsite(true);
+        sessionStorage.setItem("AnimationVisible", true)
+      }, 6000);
+    }
+
   }, []);
 
   return (
@@ -48,13 +54,13 @@ function App() {
             {Website ? (
               <iframe
                 src="http://localhost/FreenzaTech/Website/"
-                title="File Viewer"
+                title="Website"
               />
             ) : (
               <iframe
                 id="AnimationIframe"
                 src="http://localhost/FreenzaTech/Animation/Animation.html"
-                title="File Viewer"
+                title="Animation"
               />
             )}
           </div>
