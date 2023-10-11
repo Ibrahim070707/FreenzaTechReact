@@ -1,7 +1,15 @@
 import "./App.css";
 import { React, useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import { Suspense } from "react";
+import Loader from "./Components/Loader";
+import About from "./Pages/About";
+import NotFound from "./Pages/NotFound";
+import Service from "./Pages/Service";
+import Project from "./Pages/Project";
+import Contact from "./Pages/Contact";
 
 function App() {
   // const randomNumber = Math.floor(Math.random() * 3) + 1;
@@ -23,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/FreenzaTechWeb">
+    <BrowserRouter basename="/">
       {Loading ? "Loading" :
         <>
           {Website === false ? (
@@ -49,21 +57,40 @@ function App() {
           ) : (
             ""
           )}
-          <div className="full-page-iframe">
+          {Website ? (
+            <div style={{ height: "100vh" }}>
 
-            {Website ? (
-              <iframe
-                src="http://localhost/FreenzaTech/Website/"
-                title="Website"
-              />
-            ) : (
+              <Routes>
+                <Route path="/" element={<Suspense>
+                  <Home />
+                </Suspense >} />
+                <Route path="/About" element={<Suspense>
+                  <About />
+                </Suspense >} />
+                <Route path="/Service" element={<Suspense>
+                  <Service />
+                </Suspense >} />
+                <Route path="/Project" element={<Suspense>
+                  <Project />
+                </Suspense >} />
+                <Route path="/Contact" element={<Suspense>
+                  <Contact />
+                </Suspense >} />
+                <Route path="*" element={<Suspense>
+                  <NotFound />
+                </Suspense >} />
+
+              </Routes>
+            </div>
+          ) : (
+            <div className="full-page-iframe">
               <iframe
                 id="AnimationIframe"
-                src="http://localhost/FreenzaTech/Animation/Animation.html"
+                src="https://freenzatech.com/Animation/Animation.html"
                 title="Animation"
               />
-            )}
-          </div>
+            </div>
+          )}
         </>
       }
     </BrowserRouter>

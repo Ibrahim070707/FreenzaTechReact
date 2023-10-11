@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "/FreenzaTechWeb",
+  "homepage": "/",
   "devDependencies": {
     "tailwindcss": "^3.3.3"
   }
